@@ -1,0 +1,5 @@
+{
+    "profit_weight": 1.0,
+    "gas_penalty": 1.0,
+    "slippage_tolerance": 0.005
+}
