@@ -8,11 +8,11 @@ sys.stdout.reconfigure(encoding='utf-8')
 class PhantomAIBrain:
     """
     PhantomX AGI Brain for Dynamic Arbitrage & MEV Decision Making.
-    Powered by Deep Training Weights (Out-of-the-box Intelligence).
+    Powered by Deep Training Weights (Out-of-the-box Intelligence on REAL DATA).
     """
-    def __init__(self, weights_path="trained_ai_weights.json"):
-        self.weights_loan = np.array([1.0, 0.5, -0.1, 0.0]) # Fallback
-        self.weights_bribe = np.array([0.0, 0.0, 1.0, 1.1]) # Fallback
+    def __init__(self, weights_path="real_trained_ai_weights.json"):
+        self.weights_loan = np.array([1.0, 0.5, -0.1, 0.0, 0.0]) # Fallback
+        self.weights_bribe = np.array([0.0, 0.0, 1.0, 1.1, 0.0]) # Fallback
         
         if os.path.exists(weights_path):
             with open(weights_path, 'r') as f:
@@ -54,8 +54,9 @@ class PhantomAIBrain:
         if spread_pct <= 0.0001:
             return "IGNORE", 0, 0, 0
             
-        # Prepare observation array matching the training environment
-        obs = np.array([spread_pct, qs_usdc_reserves, base_gas_fee_gwei, competitor_bribe_gwei])
+        # Prepare observation array matching the training environment (5 dimensions)
+        # Using qs_price as real_price proxy since it's the base price
+        obs = np.array([spread_pct, qs_usdc_reserves, base_gas_fee_gwei, competitor_bribe_gwei, qs_price])
         
         # Get AI Predictions
         loan_pct, bribe_mult = self.get_action(obs)
