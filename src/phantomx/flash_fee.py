@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Any
 
 from .chain_rpc import ChainRpcAdapter, RpcError, RpcTransport, decode_uint256
 from .costs import FlashFeeQuote
@@ -28,9 +27,9 @@ class FlashFeeEvidence:
 class AaveV3PolygonFlashFeeAdapter:
     """Read Aave V3's live flash-loan premium on Polygon.
 
-    This adapter only performs ``eth_getCode``, chain/head, and ``eth_call``
-    reads. The Pool address is injected from trusted deployment configuration;
-    this module does not guess addresses or fee values.
+    This adapter only performs read-only RPC calls. The Pool address is
+    injected from trusted deployment configuration; this module does not
+    guess deployment addresses or fee values.
     """
 
     def __init__(self, transport: RpcTransport, pool_address: str, expected_chain_id: int = 137) -> None:
@@ -52,18 +51,27 @@ class AaveV3PolygonFlashFeeAdapter:
                 f"unexpected chain id: expected {self._expected_chain_id}, got {head.chain_id}"
             )
 
-        code = self._rpc.code_at(self._pool, block_tag=hex(head.block_number))
+        block_tag = hex(head.block_number)
+        code = self._rpc.code_at(self._pool, block_tag=block_tag)
         if not code:
             raise RpcError("Aave V3 Pool address has no deployed code at observation block")
 
         raw = self._rpc.eth_call(
             self._pool,
             AAVE_V3_FLASHLOAN_PREMIUM_TOTAL_SELECTOR,
-            block_tag=hex(head.block_number),
+            block_tag=block_tag,
         )
         premium_bps = decode_uint256(raw)
-        if premium_bps < 0 or premium_bps > 10_000:
+        if premium_bps > 10_000:
             raise RpcError("Aave V3 flash-loan premium is outside valid bps range")
+
+        ending_head = self._rpc.head()
+        if ending_head.chain_id != head.chain_id:
+            raise RpcError("chain id changed during flash-fee observation")
+        if ending_head.block_number != head.block_number:
+            raise RpcError(
+                "Polygon head advanced during flash-fee observation; retry for a same-block evidence snapshot"
+            )
 
         fee_usd = principal_usd * Decimal(premium_bps) / BPS_DENOMINATOR
         quote = FlashFeeQuote(
