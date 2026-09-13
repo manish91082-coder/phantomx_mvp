@@ -1,21 +1,22 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "project": "PHANTOMX",
-  "mode": "MVP_MARKET_TRUTH",
+  "mode": "MVP_V2_OPPORTUNITY_TRUTH",
   "live_capital": "BLOCKED",
-  "active_gate": "G2_V2_OPPORTUNITY_TRUTH",
-  "active_task": "P0-MVP-2.1",
+  "active_gate": "G2_V2_ECONOMIC_TRUTH",
+  "active_task": "P0-MVP-2.2",
   "status": "IN_PROGRESS",
   "completed_tasks": [
     "P0-MVP-0.1-CLEAN-BOOTSTRAP",
     "P0-MVP-0.2-CI-PACKAGING-FIX",
     "P0-MVP-1.1-DETERMINISTIC-MARKET-TRUTH",
-    "P0-MVP-1.2-READ-ONLY-MARKET-SNAPSHOT"
+    "P0-MVP-1.2-READ-ONLY-MARKET-SNAPSHOT",
+    "P0-MVP-2.1-V2-OPPORTUNITY-TRUTH"
   ],
-  "last_verified_commit": "da401ee80eafb120fd017c58f28d9bfc60e021ce",
-  "last_verified_ci_run": "34763651215",
+  "last_verified_commit": "6442720b2c131ec46af0b32c50bb71a82688f7dd",
+  "last_verified_ci_run": "34763768224",
   "last_verified_ci_conclusion": "success",
-  "last_verified_pr": "3",
+  "last_verified_pr": "4",
   "market_truth": {
     "chain": "Polygon PoS",
     "chain_id": 137,
@@ -24,10 +25,16 @@
     "tokens": ["WETH", "WMATIC", "USDC"],
     "read_only_only": true,
     "runtime_rpc_required": true,
-    "freshness_max_block_lag": 2
+    "freshness_max_block_lag": 2,
+    "same_block_required": true
   },
-  "next_task": "P0-MVP-2.1",
-  "next_objective": "Build deterministic cross-venue V2 candidate route construction and conservative quote comparison from one fresh market snapshot; no signing, broadcast, or fixed profitability claims.",
+  "opportunity_truth": {
+    "both_directions": true,
+    "integer_quote_math": true,
+    "gross_spread_is_not_authorization": true
+  },
+  "next_task": "P0-MVP-2.2",
+  "next_objective": "Integrate flash-fee, swap-fee, gas, slippage, price-impact and conservative risk costs into deterministic economic authorization; reject any candidate that cannot prove conservative net profit > $0.50.",
   "minimum_conservative_net_profit_usd": 0.50,
   "realized_profit_requires": ["transaction_receipt", "independent_wallet_reconciliation"],
   "no_secrets": true,
