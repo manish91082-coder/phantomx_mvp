@@ -67,16 +67,34 @@ def test_revoke_wrong_context_fails_without_clearing_grant():
 
 
 def test_malformed_or_zero_addresses_fail_closed():
-    bad = "0x" + "0" * 40
+    zero = "0x" + "0" * 40
+    malformed = "0x1234"
     with pytest.raises(ValueError):
-        AllowanceGrant(bad, TOKEN, SPENDER, "exec", 1)
+        AllowanceGrant(zero, TOKEN, SPENDER, "exec", 1)
     with pytest.raises(ValueError):
-        AllowanceGrant(OWNER, TOKEN, bad, "exec", 1)
+        AllowanceGrant(OWNER, TOKEN, zero, "exec", 1)
+    with pytest.raises(ValueError):
+        AllowanceGrant(OWNER, malformed, SPENDER, "exec", 1)
+
     lifecycle = AllowanceLifecycle()
     lifecycle.arm(grant())
-    with pytest.raises(AllowanceAuthorizationError, match="no active"):
-        lifecycle.authorize_spend(owner=OWNER, token=TOKEN, spender=SPENDER, execution_id="exec-001", amount_units=1)
-        
+    for owner, token, spender in (
+        (zero, TOKEN, SPENDER),
+        (OWNER, zero, SPENDER),
+        (OWNER, TOKEN, zero),
+        (malformed, TOKEN, SPENDER),
+        (OWNER, malformed, SPENDER),
+        (OWNER, TOKEN, malformed),
+    ):
+        with pytest.raises(AllowanceAuthorizationError):
+            lifecycle.authorize_spend(
+                owner=owner,
+                token=token,
+                spender=spender,
+                execution_id="exec-001",
+                amount_units=1,
+            )
+
 
 def test_clear_invalidates_active_grant():
     lifecycle = AllowanceLifecycle()
