@@ -1,0 +1,14 @@
+{
+  "task": "P0-MVP-2.3.5",
+  "component": "Conservative MEV/risk-buffer evidence",
+  "status": "VALIDATION_PENDING",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "scope": "V2 direct two-pool economic authorization",
+  "buffer_definition": "explicit source-labelled policy basis points applied to the candidate principal/notional",
+  "minimum_buffer_bps": 1,
+  "same_block_required": true,
+  "fallback_estimation": false,
+  "zero_buffer_allowed": false,
+  "note": "This task establishes an auditable policy-derived conservative floor. It is not presented as a predictive MEV oracle. Empirical/adaptive MEV modelling remains a later hardening task."
+}
