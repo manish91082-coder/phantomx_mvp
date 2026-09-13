@@ -51,7 +51,7 @@ def test_wrong_chain_is_rejected_before_code_lookup():
     else:
         raise AssertionError("expected chain mismatch")
 
-    assert [call[0] for call in transport.calls] == ["eth_chainId"]
+    assert [call[0] for call in transport.calls] == ["eth_chainId", "eth_blockNumber"]
 
 
 def test_stale_observation_is_rejected():
