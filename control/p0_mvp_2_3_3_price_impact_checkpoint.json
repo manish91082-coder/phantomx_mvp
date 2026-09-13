@@ -1,0 +1,12 @@
+{
+  "task": "P0-MVP-2.3.3",
+  "component": "V2 price-impact runtime evidence",
+  "status": "VALIDATION_PENDING",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "scope": "V2 constant-product AMM",
+  "price_impact_definition": "1 - curve_execution_output / instantaneous_spot_output",
+  "swap_fee_excluded_from_impact": true,
+  "same_snapshot_required": true,
+  "fallback_estimation": false
+}
