@@ -28,7 +28,7 @@ class MarketSnapshot:
 
 
 class ReadOnlyMarketReader:
-    """Build a market snapshot without signing, sending, or mutating state."""
+    """Build a same-block market snapshot without signing or broadcasting."""
 
     def __init__(self, rpc: ChainRpcAdapter, registry: V2PoolRegistry, freshness: FreshnessGuard) -> None:
         self._rpc = rpc
@@ -37,19 +37,13 @@ class ReadOnlyMarketReader:
 
     def snapshot(self, pairs: Iterable[MarketPair]) -> MarketSnapshot:
         head = self._rpc.head()
-        if head.chain_id <= 0:
-            raise ValueError("invalid chain id")
-
         results: list[PairMarketSnapshot] = []
         for pair in pairs:
             if pair.token_a.address.lower() == pair.token_b.address.lower():
                 raise ValueError("market pair tokens must differ")
             pools = self._registry.discover(pair.token_a, pair.token_b)
-            venue_snapshots = tuple(self._registry.reserves(pool) for pool in pools)
+            venue_snapshots = tuple(self._registry.reserves_at(pool, head.block_number) for pool in pools)
             for observation in venue_snapshots:
-                self._freshness.assert_fresh(
-                    Observation(observation.block_number, observation), head.block_number
-                )
+                self._freshness.assert_fresh(Observation(observation.block_number, observation), head.block_number)
             results.append(PairMarketSnapshot(pair=pair, venues=venue_snapshots))
-
         return MarketSnapshot(chain_id=head.chain_id, block_number=head.block_number, pairs=tuple(results))

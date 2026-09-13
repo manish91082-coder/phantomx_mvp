@@ -24,6 +24,10 @@ class V2Venue:
     factory: str
     swap_fee_bps: int = 30
 
+    def __post_init__(self) -> None:
+        if not 0 <= self.swap_fee_bps < 10_000:
+            raise ValueError("swap_fee_bps must be in [0, 10000)")
+
 
 @dataclass(frozen=True)
 class V2Pool:
@@ -31,6 +35,7 @@ class V2Pool:
     pair: str
     token0: str
     token1: str
+    swap_fee_bps: int
 
 
 @dataclass(frozen=True)
@@ -42,15 +47,11 @@ class V2ReserveSnapshot:
 
 
 class V2PoolRegistry:
-    def __init__(
-        self,
-        rpc: ChainRpcAdapter,
-        venues: tuple[V2Venue, ...],
-        freshness: FreshnessGuard,
-    ) -> None:
+    def __init__(self, rpc: ChainRpcAdapter, venues: tuple[V2Venue, ...], freshness: FreshnessGuard) -> None:
         self._rpc = rpc
         self._venues = venues
         self._freshness = freshness
+        self._venue_fees = {venue.name: venue.swap_fee_bps for venue in venues}
 
     def discover(self, token_a: Token, token_b: Token) -> list[V2Pool]:
         discovered: list[V2Pool] = []
@@ -64,20 +65,33 @@ class V2PoolRegistry:
                 continue
             token0 = decode_address(self._rpc.eth_call(pair, TOKEN0_SELECTOR))
             token1 = decode_address(self._rpc.eth_call(pair, TOKEN1_SELECTOR))
-            discovered.append(V2Pool(venue=venue.name, pair=pair, token0=token0, token1=token1))
+            discovered.append(
+                V2Pool(
+                    venue=venue.name,
+                    pair=pair,
+                    token0=token0,
+                    token1=token1,
+                    swap_fee_bps=venue.swap_fee_bps,
+                )
+            )
         return discovered
 
     def reserves(self, pool: V2Pool) -> V2ReserveSnapshot:
         head = self._rpc.head()
-        raw = self._rpc.eth_call(pool.pair, GET_RESERVES_SELECTOR, block_tag=hex(head.block_number))
+        return self.reserves_at(pool, head.block_number)
+
+    def reserves_at(self, pool: V2Pool, block_number: int) -> V2ReserveSnapshot:
+        if block_number < 0:
+            raise ValueError("block_number must be non-negative")
+        raw = self._rpc.eth_call(pool.pair, GET_RESERVES_SELECTOR, block_tag=hex(block_number))
         reserve0, reserve1, _ = decode_get_reserves(raw)
         snapshot = V2ReserveSnapshot(
             pool=pool,
             reserve0=reserve0,
             reserve1=reserve1,
-            block_number=head.block_number,
+            block_number=block_number,
         )
-        self._freshness.assert_fresh(Observation(head.block_number, snapshot), head.block_number)
+        self._freshness.assert_fresh(Observation(block_number, snapshot), block_number)
         return snapshot
 
 
