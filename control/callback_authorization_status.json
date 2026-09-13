@@ -1,0 +1,9 @@
+{
+  "task":"P0-MVP-3.2",
+  "status":"VALIDATION_PENDING",
+  "live_capital":"BLOCKED",
+  "read_only":true,
+  "single_use_execution_context":true,
+  "exact_sender_binding":true,
+  "exact_context_binding":true
+}
