@@ -1,0 +1,17 @@
+{
+  "task": "P0-MVP-2.3.4",
+  "component": "Externally anchored V2 slippage evidence",
+  "status": "IMPLEMENTED_VALIDATION_PENDING",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "scope": "V2 execution-output comparison against caller-supplied external reference",
+  "slippage_definition": "max(0, 1 - execution_output / reference_output)",
+  "reference_required": true,
+  "reference_source_required": true,
+  "reference_chain_and_block_required": true,
+  "same_block_required": true,
+  "same_input_required": true,
+  "fallback_tolerance": false,
+  "guessed_percentage": false,
+  "authorization_not_granted": true
+}
