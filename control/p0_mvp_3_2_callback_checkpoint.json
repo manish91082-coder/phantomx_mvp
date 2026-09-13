@@ -1,0 +1,19 @@
+{
+  "task": "P0-MVP-3.2",
+  "component": "deterministic callback sender authorization",
+  "status": "VALIDATION_PENDING",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "scope": "flash-loan callback sender and exact execution context",
+  "provider_sender_must_match": true,
+  "execution_id_single_use": true,
+  "observed_block_must_match": true,
+  "borrower_must_match": true,
+  "asset_must_match": true,
+  "amount_must_match": true,
+  "unauthorized_sender_fail_closed": true,
+  "stale_or_mismatched_callback_fail_closed": true,
+  "replay_fail_closed": true,
+  "fallback_authorization": false,
+  "signing_or_broadcast": false
+}
