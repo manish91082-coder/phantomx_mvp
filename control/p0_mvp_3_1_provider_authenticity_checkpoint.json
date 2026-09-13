@@ -1,0 +1,20 @@
+{
+  "task": "P0-MVP-3.1",
+  "component": "Provider authenticity validation boundary",
+  "status": "VALIDATION_PENDING",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "scope": "Gate 3 provider identity and deployment authenticity",
+  "requirements": [
+    "explicit provider identity",
+    "expected chain id",
+    "explicit provider contract address",
+    "exact observation block",
+    "deployed code at observation block",
+    "stable head across validation"
+  ],
+  "fallback_inference": false,
+  "signing": false,
+  "broadcast": false,
+  "secrets": false
+}
