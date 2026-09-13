@@ -38,11 +38,8 @@ def build_price_impact_evidence(
     if snapshot.reserve0 <= 0 or snapshot.reserve1 <= 0:
         raise ValueError("pool reserves must be positive")
 
-    token_in_is_0 = amount_in >= 0
     reserve_in = snapshot.reserve0
     reserve_out = snapshot.reserve1
-    if reserve_in <= 0 or reserve_out <= 0:
-        raise ValueError("selected reserves must be positive")
 
     # Spot benchmark is the instantaneous reserve ratio with no curve impact.
     spot_amount_out = Decimal(amount_in) * Decimal(reserve_out) / Decimal(reserve_in)
