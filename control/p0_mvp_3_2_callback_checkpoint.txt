@@ -1,0 +1,3 @@
+P0-MVP-3.2 VALIDATION_PENDING
+Live capital BLOCKED
+Read-only authorization boundary
