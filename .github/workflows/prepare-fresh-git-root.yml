@@ -1,0 +1,39 @@
+name: Prepare Fresh Git Root
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current canonical MVP tree
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Verify canonical MVP foundation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "manish91082-coder/phantomx_mvp"
+          test "$GITHUB_REF_NAME" = "master"
+          test -f "MVP_GOAL.md"
+          test -f "control/mvp_state.json"
+
+      - name: Create a fresh orphan root branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "PHANTOMX Fresh Root"
+          git config user.email "noreply@github.com"
+          git switch --orphan phantomx-fresh-root
+          git add -A
+          git commit -m "PHANTOMX: fresh canonical MVP root"
+          git push origin HEAD:refs/heads/phantomx-fresh-root
+          echo "Fresh root branch created: phantomx-fresh-root"
+          echo "No existing branch or history was deleted or rewritten."
