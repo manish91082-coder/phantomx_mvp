@@ -17,11 +17,11 @@ PROVIDER = "0x" + "11" * 20
 
 def test_provider_authenticity_requires_exact_chain_and_block_and_code():
     transport = FakeTransport([
-        {"result": "0x89"},
-        {"result": "0x100"},
-        {"result": "0x60006000"},
-        {"result": "0x89"},
-        {"result": "0x100"},
+        "0x89",
+        "0x100",
+        "0x60006000",
+        "0x89",
+        "0x100",
     ])
     validator = ProviderAuthenticityValidator(ChainRpcAdapter(transport))
     identity = ProviderIdentity("Aave V3", 137, PROVIDER, 256)
@@ -38,8 +38,8 @@ def test_provider_authenticity_requires_exact_chain_and_block_and_code():
 
 def test_wrong_chain_is_rejected_before_code_lookup():
     transport = FakeTransport([
-        {"result": "0x1"},
-        {"result": "0x100"},
+        "0x1",
+        "0x100",
     ])
     validator = ProviderAuthenticityValidator(ChainRpcAdapter(transport))
     identity = ProviderIdentity("Aave V3", 137, PROVIDER, 256)
@@ -56,8 +56,8 @@ def test_wrong_chain_is_rejected_before_code_lookup():
 
 def test_stale_observation_is_rejected():
     transport = FakeTransport([
-        {"result": "0x89"},
-        {"result": "0x101"},
+        "0x89",
+        "0x101",
     ])
     validator = ProviderAuthenticityValidator(ChainRpcAdapter(transport))
     identity = ProviderIdentity("Aave V3", 137, PROVIDER, 256)
@@ -72,9 +72,9 @@ def test_stale_observation_is_rejected():
 
 def test_missing_provider_code_is_rejected():
     transport = FakeTransport([
-        {"result": "0x89"},
-        {"result": "0x100"},
-        {"result": "0x"},
+        "0x89",
+        "0x100",
+        "0x",
     ])
     validator = ProviderAuthenticityValidator(ChainRpcAdapter(transport))
     identity = ProviderIdentity("Aave V3", 137, PROVIDER, 256)
