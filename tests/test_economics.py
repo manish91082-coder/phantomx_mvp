@@ -34,7 +34,6 @@ def test_embedded_swap_fee_is_not_double_counted():
         swap_fee_usd=Decimal("0.30"),
         **COMMON,
     )
-    # 100.96 - 100.00 - (0.05 + 0.20 + 0.10 + 0.10 + 0.10) = 0.41
     assert inputs.conservative_net_profit_usd() == Decimal("0.41")
     assert economic_gate(inputs) is GateStatus.BLOCKED
 
@@ -46,42 +45,28 @@ def test_non_embedded_swap_fee_is_charged_once():
         swap_fee_embedded=False,
         **COMMON,
     )
-    # Explicit costs are 0.55 and the external swap fee adds 0.30.
     assert inputs.conservative_net_profit_usd() == Decimal("0.26")
     assert inputs.conservative_costs_usd() == Decimal("0.85")
 
 
-def test_profit_must_strictly_exceed_threshold():
-    at_threshold = EconomicInputs(
-        gross_output_usd=Decimal("100.91"),
-        swap_fee_usd=Decimal("0.00"),
-        **COMMON,
-    )
-    above_threshold = EconomicInputs(
-        gross_output_usd=Decimal("100.911"),
-        swap_fee_usd=Decimal("0.00"),
-        **COMMON,
-    )
-    assert at_threshold.conservative_net_profit_usd() == Decimal("0.36")
-    assert economic_gate(at_threshold) is GateStatus.BLOCKED
-    assert economic_gate(above_threshold) is GateStatus.BLOCKED
-
-
-def test_threshold_uses_strictly_greater_than_half_dollar():
+def test_exact_half_dollar_threshold_is_blocked():
     inputs = EconomicInputs(
-        gross_output_usd=Decimal("101.06"),
+        gross_output_usd=Decimal("101.05"),
         swap_fee_usd=Decimal("0.00"),
         **COMMON,
     )
-    above = EconomicInputs(
-        gross_output_usd=Decimal("101.21"),
+    assert inputs.conservative_net_profit_usd() == Decimal("0.50")
+    assert economic_gate(inputs) is GateStatus.BLOCKED
+
+
+def test_profit_must_strictly_exceed_threshold():
+    inputs = EconomicInputs(
+        gross_output_usd=Decimal("101.051"),
         swap_fee_usd=Decimal("0.00"),
         **COMMON,
     )
-    assert inputs.conservative_net_profit_usd() == Decimal("0.51")
+    assert inputs.conservative_net_profit_usd() == Decimal("0.501")
     assert economic_gate(inputs) is GateStatus.GREEN
-    assert above.conservative_net_profit_usd() == Decimal("0.66")
-    assert economic_gate(above) is GateStatus.GREEN
 
 
 def test_negative_or_non_finite_costs_are_rejected():
