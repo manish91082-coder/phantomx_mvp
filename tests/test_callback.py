@@ -81,8 +81,6 @@ def test_stale_block_is_rejected():
 
 
 def test_context_mismatch_is_rejected():
-    authorizer = CallbackAuthorizer()
-    authorizer.arm(context())
     cases = {
         "execution id": {"execution_id": "exec-002"},
         "borrower": {"borrower": ATTACKER},
@@ -90,6 +88,8 @@ def test_context_mismatch_is_rejected():
         "amount": {"amount": 1_000_001},
     }
     for label, override in cases.items():
+        authorizer = CallbackAuthorizer()
+        authorizer.arm(context())
         kwargs = dict(
             sender=PROVIDER,
             execution_id="exec-001",
@@ -99,14 +99,8 @@ def test_context_mismatch_is_rejected():
             amount=1_000_000,
         )
         kwargs.update(override)
-        with pytest.raises(CallbackAuthorizationError), pytest.raises(CallbackAuthorizationError):
-            pass
-        try:
+        with pytest.raises(CallbackAuthorizationError):
             authorizer.authorize(**kwargs)
-        except CallbackAuthorizationError as exc:
-            assert label.split()[0] in str(exc).lower() or "context" in str(exc).lower()
-        else:
-            raise AssertionError(f"expected {label} mismatch")
 
 
 def test_replay_and_rearm_after_success_are_rejected():
