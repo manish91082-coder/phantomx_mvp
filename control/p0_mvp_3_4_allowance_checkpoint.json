@@ -1,7 +1,7 @@
 {
   "task": "P0-MVP-3.4",
   "component": "deterministic allowance lifecycle safety",
-  "status": "VALIDATION_PENDING",
+  "status": "GREEN",
   "live_capital": "BLOCKED",
   "read_only": true,
   "scope": "bounded token approval authorization for one execution",
@@ -16,5 +16,10 @@
   "active_context_singleton": true,
   "clear_invalidates_active_context": true,
   "fallback_allowance": false,
-  "signing_or_broadcast": false
+  "signing_or_broadcast": false,
+  "validated_commit": "a7e1bd27dfac4f1037c894fea0ad56a58ef51399",
+  "validated_pr": "14",
+  "validated_ci_run": "34775813871",
+  "validated_ci_conclusion": "success",
+  "validation_note": "Branch and pull-request deterministic CI both passed after correcting the invalid-address regression test; merged to master and post-merge master CI passed."
 }
