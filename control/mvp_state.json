@@ -4,7 +4,7 @@
   "mode": "MVP_V2_OPPORTUNITY_TRUTH",
   "live_capital": "BLOCKED",
   "active_gate": "G2_V2_ECONOMIC_TRUTH",
-  "active_task": "P0-MVP-2.3.4",
+  "active_task": "P0-MVP-2.3.5",
   "status": "IN_PROGRESS",
   "completed_tasks": [
     "P0-MVP-0.1-CLEAN-BOOTSTRAP",
@@ -15,12 +15,13 @@
     "P0-MVP-2.2-RUNTIME-ECONOMIC-COST-EVIDENCE",
     "P0-MVP-2.3.1-POLYGON-GAS-EVIDENCE",
     "P0-MVP-2.3.2-AAVE-V3-FLASH-FEE-EVIDENCE",
-    "P0-MVP-2.3.3-V2-PRICE-IMPACT-EVIDENCE"
+    "P0-MVP-2.3.3-V2-PRICE-IMPACT-EVIDENCE",
+    "P0-MVP-2.3.4-V2-SLIPPAGE-EVIDENCE"
   ],
-  "last_verified_commit": "89e1056f57f8bd39734e631ef600cee2b371bbe5",
-  "last_verified_ci_run": "34770382259",
+  "last_verified_commit": "4c5fa0f4cc8969b613bfa3e9e4d28ab3132e602a",
+  "last_verified_ci_run": "34770493724",
   "last_verified_ci_conclusion": "success",
-  "last_verified_pr": "9",
+  "last_verified_pr": "10",
   "market_truth": {
     "chain": "Polygon PoS",
     "chain_id": 137,
@@ -45,8 +46,8 @@
     "slippage_reference_evidence_required": true,
     "minimum_conservative_net_profit_usd": 0.50
   },
-  "next_task": "P0-MVP-2.3.4",
-  "next_objective": "Build externally anchored, read-only slippage evidence for V2 authorization; require a verifiable reference output and coherent observation metadata, with no guessed or fallback slippage tolerance.",
+  "next_task": "P0-MVP-2.3.5",
+  "next_objective": "Build auditable conservative MEV/risk-buffer evidence with an explicit, source-labelled runtime policy; reject missing, zero-floor, stale, contradictory, or unverifiable risk evidence and never invent a fallback buffer.",
   "minimum_conservative_net_profit_usd": 0.50,
   "realized_profit_requires": ["transaction_receipt", "independent_wallet_reconciliation"],
   "no_secrets": true,
