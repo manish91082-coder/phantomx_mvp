@@ -1,0 +1,13 @@
+{
+  "task": "P0-MVP-2.3.2",
+  "component": "Aave V3 Polygon flash-fee runtime evidence",
+  "status": "READY_FOR_VALIDATION",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "provider": "Aave V3",
+  "chain_id": 137,
+  "fee_source": "FLASHLOAN_PREMIUM_TOTAL() on injected Pool address",
+  "fee_units": "basis_points",
+  "same_block_required": true,
+  "fallback_estimation": false
+}
