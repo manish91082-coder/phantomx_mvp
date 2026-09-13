@@ -1,7 +1,12 @@
 {
   "task": "P0-MVP-2.3.5",
   "component": "Conservative MEV/risk-buffer evidence",
-  "status": "VALIDATION_PENDING",
+  "status": "GREEN",
+  "validation": {
+    "master_commit": "275bc71242b55640558a168620f49ac506e8ad93",
+    "ci_run": "34771185387",
+    "ci_conclusion": "success"
+  },
   "live_capital": "BLOCKED",
   "read_only": true,
   "scope": "V2 direct two-pool economic authorization",
