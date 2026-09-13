@@ -3,8 +3,8 @@
   "project": "PHANTOMX",
   "mode": "MVP_V2_OPPORTUNITY_TRUTH",
   "live_capital": "BLOCKED",
-  "active_gate": "G2_V2_ECONOMIC_TRUTH",
-  "active_task": "P0-MVP-2.3.6",
+  "active_gate": "G3_PROVIDER_EXECUTOR_TRUTH",
+  "active_task": "P0-MVP-3.2",
   "status": "IN_PROGRESS",
   "completed_tasks": [
     "P0-MVP-0.1-CLEAN-BOOTSTRAP",
@@ -17,12 +17,14 @@
     "P0-MVP-2.3.2-AAVE-V3-FLASH-FEE-EVIDENCE",
     "P0-MVP-2.3.3-V2-PRICE-IMPACT-EVIDENCE",
     "P0-MVP-2.3.4-V2-SLIPPAGE-EVIDENCE",
-    "P0-MVP-2.3.5-CONSERVATIVE-RISK-BUFFER-EVIDENCE"
+    "P0-MVP-2.3.5-CONSERVATIVE-RISK-BUFFER-EVIDENCE",
+    "P0-MVP-2.3.6-DETERMINISTIC-ECONOMIC-AUTHORIZATION",
+    "P0-MVP-3.1-PROVIDER-AUTHENTICITY"
   ],
-  "last_verified_commit": "275bc71242b55640558a168620f49ac506e8ad93",
-  "last_verified_ci_run": "34771185387",
+  "last_verified_commit": "f079c932c454351e9831cc6091ad528582095838",
+  "last_verified_ci_run": "34771721471",
   "last_verified_ci_conclusion": "success",
-  "last_verified_pr": "10",
+  "last_verified_pr": "11",
   "market_truth": {
     "chain": "Polygon PoS",
     "chain_id": 137,
@@ -49,8 +51,16 @@
     "risk_buffer_is_policy_floor_not_mev_oracle": true,
     "minimum_conservative_net_profit_usd": 0.50
   },
-  "next_task": "P0-MVP-2.3.6",
-  "next_objective": "Integrate gas, flash-fee, price-impact, slippage and conservative risk-buffer evidence into one deterministic fail-closed V2 economic authorization path; reject incomplete or incoherent evidence before Gate 3.",
+  "provider_executor_truth": {
+    "provider_authenticity_required": true,
+    "callback_sender_validation_required": true,
+    "exact_repayment_semantics_required": true,
+    "allowance_lifecycle_required": true,
+    "reentrancy_protection_required": true,
+    "active_state_cleanup_required": true
+  },
+  "next_task": "P0-MVP-3.2",
+  "next_objective": "Establish deterministic callback sender authorization bound to the authenticated flash-loan provider and exact loan execution context; fail closed on unauthorized, stale, replayed, or mismatched callbacks.",
   "minimum_conservative_net_profit_usd": 0.50,
   "realized_profit_requires": ["transaction_receipt", "independent_wallet_reconciliation"],
   "no_secrets": true,
