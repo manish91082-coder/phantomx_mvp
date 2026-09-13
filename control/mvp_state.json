@@ -4,7 +4,7 @@
   "mode": "MVP_V2_OPPORTUNITY_TRUTH",
   "live_capital": "BLOCKED",
   "active_gate": "G3_PROVIDER_EXECUTOR_TRUTH",
-  "active_task": "P0-MVP-3.2",
+  "active_task": "P0-MVP-3.4",
   "status": "IN_PROGRESS",
   "completed_tasks": [
     "P0-MVP-0.1-CLEAN-BOOTSTRAP",
@@ -19,59 +19,23 @@
     "P0-MVP-2.3.4-V2-SLIPPAGE-EVIDENCE",
     "P0-MVP-2.3.5-CONSERVATIVE-RISK-BUFFER-EVIDENCE",
     "P0-MVP-2.3.6-DETERMINISTIC-ECONOMIC-AUTHORIZATION",
-    "P0-MVP-3.1-PROVIDER-AUTHENTICITY"
+    "P0-MVP-3.1-PROVIDER-AUTHENTICITY",
+    "P0-MVP-3.2-CALLBACK-SENDER-AUTHORIZATION",
+    "P0-MVP-3.3-EXACT-REPAYMENT-SEMANTICS"
   ],
-  "last_verified_commit": "f079c932c454351e9831cc6091ad528582095838",
-  "last_verified_ci_run": "34771721471",
+  "last_verified_commit": "62e9d4666eba1fae33538d54533d4bb263d6c492",
+  "last_verified_ci_run": "34774465598",
   "last_verified_ci_conclusion": "success",
-  "last_verified_pr": "11",
-  "market_truth": {
-    "chain": "Polygon PoS",
-    "chain_id": 137,
-    "route_scope": "V2_DIRECT_TWO_POOL",
-    "venues": ["QuickSwap V2", "Uniswap V2"],
-    "tokens": ["WETH", "WMATIC", "USDC"],
-    "read_only_only": true,
-    "runtime_rpc_required": true,
-    "freshness_max_block_lag": 2,
-    "same_block_required": true
-  },
-  "opportunity_truth": {
-    "both_directions": true,
-    "integer_quote_math": true,
-    "gross_spread_is_not_authorization": true
-  },
-  "economic_truth": {
-    "runtime_cost_evidence_required": true,
-    "no_fallback_estimation": true,
-    "swap_fee_single_entry": true,
-    "price_impact_evidence_required": true,
-    "slippage_reference_evidence_required": true,
-    "risk_buffer_evidence_required": true,
-    "risk_buffer_is_policy_floor_not_mev_oracle": true,
-    "minimum_conservative_net_profit_usd": 0.50
-  },
-  "provider_executor_truth": {
-    "provider_authenticity_required": true,
-    "callback_sender_validation_required": true,
-    "exact_repayment_semantics_required": true,
-    "allowance_lifecycle_required": true,
-    "reentrancy_protection_required": true,
-    "active_state_cleanup_required": true
-  },
-  "next_task": "P0-MVP-3.2",
-  "next_objective": "Establish deterministic callback sender authorization bound to the authenticated flash-loan provider and exact loan execution context; fail closed on unauthorized, stale, replayed, or mismatched callbacks.",
+  "last_verified_pr": "13",
+  "market_truth": {"chain": "Polygon PoS", "chain_id": 137, "route_scope": "V2_DIRECT_TWO_POOL", "venues": ["QuickSwap V2", "Uniswap V2"], "tokens": ["WETH", "WMATIC", "USDC"], "read_only_only": true, "runtime_rpc_required": true, "freshness_max_block_lag": 2, "same_block_required": true},
+  "opportunity_truth": {"both_directions": true, "integer_quote_math": true, "gross_spread_is_not_authorization": true},
+  "economic_truth": {"runtime_cost_evidence_required": true, "no_fallback_estimation": true, "swap_fee_single_entry": true, "price_impact_evidence_required": true, "slippage_reference_evidence_required": true, "risk_buffer_evidence_required": true, "risk_buffer_is_policy_floor_not_mev_oracle": true, "minimum_conservative_net_profit_usd": 0.50},
+  "provider_executor_truth": {"provider_authenticity_required": true, "callback_sender_validation_required": true, "exact_repayment_semantics_required": true, "allowance_lifecycle_required": true, "reentrancy_protection_required": true, "active_state_cleanup_required": true},
+  "next_task": "P0-MVP-3.4",
+  "next_objective": "Establish deterministic bounded allowance lifecycle authorization: exact owner/token/spender/execution binding, bounded spend, same-context revoke, and fail-closed cleanup before any executor integration.",
   "minimum_conservative_net_profit_usd": 0.50,
   "realized_profit_requires": ["transaction_receipt", "independent_wallet_reconciliation"],
   "no_secrets": true,
-  "continuity": {
-    "checkpoint_required": true,
-    "evidence_required": true,
-    "resume_from_checkpoint": true
-  },
-  "decision_policy": {
-    "ai": "PROPOSE",
-    "deterministic_verifier": "DECIDE",
-    "executor": "EXECUTE"
-  }
+  "continuity": {"checkpoint_required": true, "evidence_required": true, "resume_from_checkpoint": true},
+  "decision_policy": {"ai": "PROPOSE", "deterministic_verifier": "DECIDE", "executor": "EXECUTE"}
 }

@@ -1,0 +1,20 @@
+{
+  "task": "P0-MVP-3.4",
+  "component": "deterministic allowance lifecycle safety",
+  "status": "VALIDATION_PENDING",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "scope": "bounded token approval authorization for one execution",
+  "owner_must_match": true,
+  "token_must_match": true,
+  "spender_must_match": true,
+  "execution_id_must_match": true,
+  "bounded_amount_required": true,
+  "overspend_fail_closed": true,
+  "zero_or_malformed_address_fail_closed": true,
+  "revoke_requires_same_context": true,
+  "active_context_singleton": true,
+  "clear_invalidates_active_context": true,
+  "fallback_allowance": false,
+  "signing_or_broadcast": false
+}
