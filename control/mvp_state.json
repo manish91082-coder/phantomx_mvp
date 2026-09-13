@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "project": "PHANTOMX",
+  "mode": "MVP_CLEAN_BOOTSTRAP",
+  "live_capital": "BLOCKED",
+  "active_gate": "G0_CLEAN_BOOTSTRAP",
+  "active_task": "P0-MVP-0.1",
+  "status": "IN_PROGRESS",
+  "next_task": "P0-MVP-1.1",
+  "chain_scope": "ONE_CHAIN_AT_A_TIME",
+  "route_scope": "V2_DIRECT_TWO_POOL",
+  "v3_status": "EXPANSION_BLOCKED",
+  "minimum_conservative_net_profit_usd": 0.50,
+  "realized_profit_requires": ["transaction_receipt", "independent_wallet_reconciliation"],
+  "no_secrets": true,
+  "continuity": {
+    "checkpoint_required": true,
+    "evidence_required": true,
+    "resume_from_checkpoint": true
+  },
+  "decision_policy": {
+    "ai": "PROPOSE",
+    "deterministic_verifier": "DECIDE",
+    "executor": "EXECUTE"
+  }
+}

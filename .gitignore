@@ -1,5 +1,9 @@
-venv/
 __pycache__/
 .pytest_cache/
+.coverage
+.venv/
+venv/
+*.pyc
 .env
-integration_test_results.json
+.env.*
+secrets/
