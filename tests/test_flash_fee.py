@@ -22,7 +22,7 @@ class FakeTransport:
         return response
 
 
-PREMIUM_50_BPS = "0x" + "0" * 60 + "32"
+PREMIUM_50_BPS = "0x" + "0" * 62 + "32"
 
 
 def test_aave_polygon_flash_fee_reads_live_premium():
