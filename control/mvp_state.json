@@ -4,7 +4,7 @@
   "mode": "MVP_V2_OPPORTUNITY_TRUTH",
   "live_capital": "BLOCKED",
   "active_gate": "G2_V2_ECONOMIC_TRUTH",
-  "active_task": "P0-MVP-2.3.5",
+  "active_task": "P0-MVP-2.3.6",
   "status": "IN_PROGRESS",
   "completed_tasks": [
     "P0-MVP-0.1-CLEAN-BOOTSTRAP",
@@ -16,10 +16,11 @@
     "P0-MVP-2.3.1-POLYGON-GAS-EVIDENCE",
     "P0-MVP-2.3.2-AAVE-V3-FLASH-FEE-EVIDENCE",
     "P0-MVP-2.3.3-V2-PRICE-IMPACT-EVIDENCE",
-    "P0-MVP-2.3.4-V2-SLIPPAGE-EVIDENCE"
+    "P0-MVP-2.3.4-V2-SLIPPAGE-EVIDENCE",
+    "P0-MVP-2.3.5-CONSERVATIVE-RISK-BUFFER-EVIDENCE"
   ],
-  "last_verified_commit": "4c5fa0f4cc8969b613bfa3e9e4d28ab3132e602a",
-  "last_verified_ci_run": "34770493724",
+  "last_verified_commit": "275bc71242b55640558a168620f49ac506e8ad93",
+  "last_verified_ci_run": "34771185387",
   "last_verified_ci_conclusion": "success",
   "last_verified_pr": "10",
   "market_truth": {
@@ -44,10 +45,12 @@
     "swap_fee_single_entry": true,
     "price_impact_evidence_required": true,
     "slippage_reference_evidence_required": true,
+    "risk_buffer_evidence_required": true,
+    "risk_buffer_is_policy_floor_not_mev_oracle": true,
     "minimum_conservative_net_profit_usd": 0.50
   },
-  "next_task": "P0-MVP-2.3.5",
-  "next_objective": "Build auditable conservative MEV/risk-buffer evidence with an explicit, source-labelled runtime policy; reject missing, zero-floor, stale, contradictory, or unverifiable risk evidence and never invent a fallback buffer.",
+  "next_task": "P0-MVP-2.3.6",
+  "next_objective": "Integrate gas, flash-fee, price-impact, slippage and conservative risk-buffer evidence into one deterministic fail-closed V2 economic authorization path; reject incomplete or incoherent evidence before Gate 3.",
   "minimum_conservative_net_profit_usd": 0.50,
   "realized_profit_requires": ["transaction_receipt", "independent_wallet_reconciliation"],
   "no_secrets": true,
