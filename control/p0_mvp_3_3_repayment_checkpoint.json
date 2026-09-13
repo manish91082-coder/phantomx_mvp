@@ -1,0 +1,16 @@
+{
+  "task": "P0-MVP-3.3",
+  "component": "exact flash-loan repayment semantics",
+  "status": "VALIDATION_PENDING",
+  "live_capital": "BLOCKED",
+  "read_only": true,
+  "scope": "principal plus provider-supplied flash fee in exact borrowed-asset units",
+  "exact_required_repayment": true,
+  "borrower_must_match_payer": true,
+  "asset_must_match": true,
+  "underpayment_fail_closed": true,
+  "overpayment_fail_closed": true,
+  "malformed_or_zero_address_fail_closed": true,
+  "fallback_fee_estimation": false,
+  "signing_or_broadcast": false
+}
