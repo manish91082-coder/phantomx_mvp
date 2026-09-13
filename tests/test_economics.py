@@ -53,17 +53,35 @@ def test_non_embedded_swap_fee_is_charged_once():
 
 def test_profit_must_strictly_exceed_threshold():
     at_threshold = EconomicInputs(
-        gross_output_usd=Decimal("101.06"),
+        gross_output_usd=Decimal("100.91"),
         swap_fee_usd=Decimal("0.00"),
         **COMMON,
     )
     above_threshold = EconomicInputs(
-        gross_output_usd=Decimal("101.061"),
+        gross_output_usd=Decimal("100.911"),
         swap_fee_usd=Decimal("0.00"),
         **COMMON,
     )
-    assert economic_gate(at_threshold) is GateStatus_BLOCKED
-    assert economic_gate(above_threshold) is GateStatus.GREEN
+    assert at_threshold.conservative_net_profit_usd() == Decimal("0.36")
+    assert economic_gate(at_threshold) is GateStatus.BLOCKED
+    assert economic_gate(above_threshold) is GateStatus.BLOCKED
+
+
+def test_threshold_uses_strictly_greater_than_half_dollar():
+    inputs = EconomicInputs(
+        gross_output_usd=Decimal("101.06"),
+        swap_fee_usd=Decimal("0.00"),
+        **COMMON,
+    )
+    above = EconomicInputs(
+        gross_output_usd=Decimal("101.21"),
+        swap_fee_usd=Decimal("0.00"),
+        **COMMON,
+    )
+    assert inputs.conservative_net_profit_usd() == Decimal("0.51")
+    assert economic_gate(inputs) is GateStatus.GREEN
+    assert above.conservative_net_profit_usd() == Decimal("0.66")
+    assert economic_gate(above) is GateStatus.GREEN
 
 
 def test_negative_or_non_finite_costs_are_rejected():
