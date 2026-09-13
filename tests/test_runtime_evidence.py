@@ -26,7 +26,8 @@ def test_polygon_gas_quote_uses_runtime_rpc_and_explicit_usd_observation():
             "0x100",         # eth_blockNumber
             "0x5208",        # eth_estimateGas = 21000
             "0x3b9aca00",    # eth_gasPrice = 1 gwei
-            "0x100",         # stable head
+            "0x89",          # stable eth_chainId
+            "0x100",         # stable eth_blockNumber
         ]
     )
     adapter = PolygonGasEvidenceAdapter(transport)
@@ -68,6 +69,7 @@ def test_polygon_gas_quote_rejects_moving_head():
             "0x100",
             "0x5208",
             "0x3b9aca00",
+            "0x89",
             "0x101",
         ]
     )
